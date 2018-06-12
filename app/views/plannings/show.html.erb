@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Open hour:</strong>
+  <%= @planning.open_hour %>
+</p>
+
+<p>
+  <strong>Close hour:</strong>
+  <%= @planning.close_hour %>
+</p>
+
+<p>
+  <strong>Bakery:</strong>
+  <%= @planning.bakery %>
+</p>
+
+<p>
+  <strong>Week:</strong>
+  <%= @planning.week %>
+</p>
+
+<%= link_to 'Edit', edit_planning_path(@planning) %> |
+<%= link_to 'Back', plannings_path %>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Company name:</strong>
+  <%= @bakery.company_name %>
+</p>
+
+<p>
+  <strong>Picture:</strong>
+  <%= @bakery.picture %>
+</p>
+
+<p>
+  <strong>Created at:</strong>
+  <%= @bakery.created_at %>
+</p>
+
+<p>
+  <strong>Updated at:</strong>
+  <%= @bakery.updated_at %>
+</p>
+
+<%= link_to 'Edit', edit_bakery_path(@bakery) %> |
+<%= link_to 'Back', bakeries_path %>
