@@ -64,3 +64,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Custom added libraries
 gem 'jquery-rails'
 gem 'bootstrap-sass'
+gem 'devise'
