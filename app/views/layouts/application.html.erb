@@ -38,13 +38,10 @@
     <% end %>
     <% if user_signed_in? %>
       <li class="nav-item">
-
         <%= link_to 'Users', edit_user_registration_path(current_user), class: "nav-link" %>
       </li>
     <% end %>
   </ul>
-
-
 
   <div class="container">
     <%= yield %>
