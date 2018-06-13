@@ -1,24 +1,14 @@
-<p id="notice"><%= notice %></p>
-
+<img class="card-img-top" src="<%= image_url @bakery.picture  %>" alt="Card image cap">
 <p>
   <strong>Company name:</strong>
   <%= @bakery.company_name %>
 </p>
 
-<p>
-  <strong>Picture:</strong>
-  <%= @bakery.picture %>
-</p>
+<h3> Products :</h3>
 
-<p>
-  <strong>Created at:</strong>
-  <%= @bakery.created_at %>
-</p>
+<% if @bakery.user_id == current_user.id %>
+  <%= link_to 'Add Product', new_product_path %><br>
+  <%= link_to 'Edit Bakery Profile', edit_bakery_path(@bakery) %><br>
+<% end %>
 
-<p>
-  <strong>Updated at:</strong>
-  <%= @bakery.updated_at %>
-</p>
-
-<%= link_to 'Edit', edit_bakery_path(@bakery) %> |
 <%= link_to 'Back', bakeries_path %>
