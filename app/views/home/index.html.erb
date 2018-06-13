@@ -1,4 +1,8 @@
 <h1>
-  Ceci est la page d'accueil du projet
+  Welcome to
   <%= Rails.application.class.parent_name %> !
+
+  <% if user_signed_in? %>
+    Role : <%= current_user.role %>
+  <% end %>
 </h1>
