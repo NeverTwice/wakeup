@@ -1,39 +1,27 @@
 class BakeriesController < ApplicationController
   before_action :set_bakery, only: [:show, :edit, :update, :destroy]
 
-  # GET /bakeries
-  # GET /bakeries.json
   def index
     @bakeries = Bakery.all
   end
 
-  # GET /bakeries/1
-  # GET /bakeries/1.json
   def show
   end
 
-  # GET /bakeries/new
   def new
     @bakery = Bakery.new
   end
 
-  # GET /bakeries/1/edit
   def edit
   end
 
-  # POST /bakeries
-  # POST /bakeries.json
   def create
     @bakery = Bakery.new(bakery_params)
-
-    respond_to do |format|
-      if @bakery.save
-        format.html { redirect_to @bakery, notice: 'Bakery was successfully created.' }
-        format.json { render :show, status: :created, location: @bakery }
-      else
-        format.html { render :new }
-        format.json { render json: @bakery.errors, status: :unprocessable_entity }
-      end
+    @bakery.user_id = current_user.id
+    if @bakery.save
+      redirect_to @bakery
+    else
+      render :new
     end
   end
 
