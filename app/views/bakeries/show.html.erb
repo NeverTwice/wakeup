@@ -1,14 +1,43 @@
-<img class="card-img-top" src="<%= image_url @bakery.picture  %>" alt="Card image cap">
-<p>
-  <strong>Company name:</strong>
-  <%= @bakery.company_name %>
-</p>
-
-<h3> Products :</h3>
-
-<% if @bakery.user_id == current_user.id %>
-  <%= link_to 'Add Product', new_product_path %><br>
-  <%= link_to 'Edit Bakery Profile', edit_bakery_path(@bakery) %><br>
+<% if @bakery.picture != "" %>
+<section class="probootstrap-cover" style="background-image:url(<%= image_url @bakery.picture  %>)">
+  <div class="container">
+    <div class="row probootstrap-vh-75 align-items-center text-left">
+      <div class="col-sm">
+        <div class="probootstrap-text pt-5">
+          <h1 class="probootstrap-heading text-white mb-4">
+            <strong>Company name:</strong>
+            <%= @bakery.company_name %>
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<% else %>
+<section class="probootstrap-cover">
+  <div class="container">
+    <div class="row probootstrap-vh-75 align-items-center text-left">
+      <div class="col-sm">
+        <div class="probootstrap-text pt-5">
+          <h1 class="probootstrap-heading text-white mb-4">
+            <strong>Company name:</strong>
+            <%= @bakery.company_name %>
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <% end %>
 
-<%= link_to 'Back', bakeries_path %>
+
+<section class="probootstrap-section">
+  <div class="container">
+    <% if @bakery.user_id == current_user.id %>
+      <%= link_to 'Add Product', new_product_path %><br>
+      <%= link_to 'Edit Bakery Profile', edit_bakery_path(@bakery) %><br>
+    <% end %>
+
+    <%= link_to 'Back', bakeries_path %>
+  </div>
+</section>

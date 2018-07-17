@@ -1,5 +1,16 @@
-<h1>New Bakery</h1>
+<section class="probootstrap-cover">
+  <div class="container">
+    <div class="row align-items-center text-left" style="padding-top:5em;">
+      <div class="col-sm">
+        <div class="probootstrap-text pt-5">
+          <h1 class="probootstrap-heading text-white mb-4">Add your bakery</h1>
+          <div class="probootstrap-subheading mb-5">
+            <%= render 'form', bakery: @bakery %>
 
-<%= render 'form', bakery: @bakery %>
-
-<%= link_to 'Back', bakeries_path %>
+            <%= link_to 'Back', bakeries_path %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
