@@ -3,10 +3,12 @@
 <head>
   <title>Wake Up</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta charset="UTF-8">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -14,38 +16,147 @@
 
 <body>
 <% if notice %>
-  <p class="alert alert-warning"><%= notice %></p>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <%= notice %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 <% elsif alert %>
-  <p class="alert alert-danger"><%= alert %></p>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= alert %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 <% end %>
 
-<div class="container-fluid">
-  <ul class="nav">
-    <% if user_signed_in? %>
+<!--  <ul class="nav">
+    <%# if user_signed_in? %>
       <li class="nav-item">
-        <%= link_to 'Edit account', edit_user_registration_path, class: "nav-link" %>
+        <%#= link_to 'Edit account', edit_user_registration_path, class: "nav-link" %>
       </li>
       <li class="nav-item">
-        <%= link_to 'Sign out', destroy_user_session_path, :method => 'delete', class: "nav-link" %>
+        <%#= link_to 'Sign out', destroy_user_session_path, :method => 'delete', class: "nav-link" %>
       </li>
-    <% else %>
+    <%# else %>
       <li class="nav-item">
-        <%= link_to 'Sign in', new_user_session_path, class: "nav-link" %>
+        <%#= link_to 'Sign in', new_user_session_path, class: "nav-link" %>
       </li>
       <li class="nav-item">
-        <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
+        <%#= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
       </li>
-    <% end %>
-    <% if user_signed_in? %>
+    <%# end %>
+    <%# if user_signed_in? %>
       <li class="nav-item">
-        <%= link_to 'Users', edit_user_registration_path(current_user), class: "nav-link" %>
+        <%#= link_to 'Users', edit_user_registration_path(current_user), class: "nav-link" %>
       </li>
-    <% end %>
-  </ul>
+    <%# end %>
+  </ul>-->
 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark probootstrap-navabr-dark">
   <div class="container">
-    <%= yield %>
+    <a class="navbar-brand" href="<%= request.base_url %>">Unlock</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-nav" aria-controls="probootstrap-nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="probootstrap-nav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+        <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+
+        <% if user_signed_in? %>
+          <li class="nav-item probootstrap-cta probootstrap-seperator">
+            <%= link_to 'Edit account', edit_user_registration_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item probootstrap-cta">
+            <%= link_to 'Sign out', destroy_user_session_path, :method => 'delete', class: "nav-link" %>
+          </li>
+        <% else %>
+          <li class="nav-item probootstrap-cta probootstrap-seperator">
+            <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item probootstrap-cta">
+            <%= link_to 'Sign in', new_user_session_path, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+
+    </div>
   </div>
-</div>
+</nav>
+
+<%= yield %>
+
+<footer class="probootstrap-footer">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-lg mb-4"><h2 class="probootstrap-heading"><a href="#">Unlock</a></h2></div>
+          <div class="col-lg">
+            <div class="probootstrap-footer-widget mb-4">
+              <h2 class="probootstrap-heading-2">Company</h2>
+              <ul class="list-unstyled">
+                <li><a href="#" class="py-2 d-block">About</a></li>
+                <li><a href="#" class="py-2 d-block">Jobs</a></li>
+                <li><a href="#" class="py-2 d-block">Press</a></li>
+                <li><a href="#" class="py-2 d-block">News</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg">
+            <div class="probootstrap-footer-widget mb-4">
+              <h2 class="probootstrap-heading-2">Communities</h2>
+              <ul class="list-unstyled">
+                <li><a href="#" class="py-2 d-block">Support</a></li>
+                <li><a href="#" class="py-2 d-block">Sharing is Caring</a></li>
+                <li><a href="#" class="py-2 d-block">Better Web</a></li>
+                <li><a href="#" class="py-2 d-block">News</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg">
+            <div class="probootstrap-footer-widget mb-4">
+              <h2 class="probootstrap-heading-2">Useful links</h2>
+              <ul class="list-unstyled">
+                <li><a href="#" class="py-2 d-block">Bootstrap 4</a></li>
+                <li><a href="#" class="py-2 d-block">jQuery</a></li>
+                <li><a href="#" class="py-2 d-block">HTML5</a></li>
+                <li><a href="#" class="py-2 d-block">Sass</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="probootstrap-footer-widget mb-4">
+          <ul class="probootstrap-footer-social list-unstyled float-md-right float-lft">
+            <li><a href="#"><span class="icon-twitter"></span></a></li>
+            <li><a href="#"><span class="icon-facebook"></span></a></li>
+            <li><a href="#"><span class="icon-instagram"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md text-left">
+        <ul class="list-unstyled footer-small-nav">
+          <li><a href="#">Legal</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Cookies</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </div>
+      <div class="col-md text-md-right text-left">
+        <p><small>&copy; Unlock 2017. All Rights Reserved. <br> Made with <span class="icon-heart"></span> by <a href="https://uicookies.com/">uiCookies</a> Demo Images: Unsplash</small></p>
+      </div>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
