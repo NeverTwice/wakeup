@@ -1,12 +1,29 @@
-<h1>Bakeries</h1>
-
-<% @bakeries.each do |bakery| %>
-  <div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="<%= image_url bakery.picture  %>" alt="Card image cap">
-    <div class="card-body">
-      <p class="card-text">
-        <%= link_to bakery.company_name, bakery  %>
-      </p>
+<section class="probootstrap-cover">
+  <div class="container">
+    <div class="row align-items-center text-left" style="padding-top:5em;">
+      <div class="col-sm">
+        <div class="probootstrap-text pt-5">
+          <h1 class="probootstrap-heading text-white mb-4">Bakeries</h1>
+          <div class="probootstrap-subheading mb-5">
+            <p>Lorem ipsum</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-<% end %>
+</section>
+
+<section class="probootstrap-section">
+  <div class="container">
+    <% @bakeries.each do |bakery| %>
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="<%= image_url bakery.picture %>" alt="Card image cap">
+        <div class="card-body">
+          <p class="card-text">
+            <%= link_to bakery.company_name, bakery %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

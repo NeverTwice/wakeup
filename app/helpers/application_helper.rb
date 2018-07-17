@@ -5,11 +5,8 @@ module ApplicationHelper
       if current_user.baker?
         # Redirections for bakers
         bakery = Bakery.where(:user_id => resource.id).first
-        if bakery
-          bakery
-        else
-          "/bakeries/new"
-        end
+
+        bakery ? bakery : "/bakeries/new"
       else
         # Redirections for users
         "/bakeries"
