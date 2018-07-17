@@ -1,5 +1,16 @@
-<h1>New Category</h1>
+<section class="probootstrap-cover">
+  <div class="container">
+    <div class="row probootstrap-vh-75 align-items-center text-left">
+      <div class="col-sm">
+        <div class="probootstrap-text pt-5">
+          <h1 class="probootstrap-heading text-white mb-4">New Category</h1>
+          <div class="probootstrap-subheading mb-5">
+            <%= render 'form', category: @category %>
 
-<%= render 'form', category: @category %>
-
-<%= link_to 'Back', categories_path %>
+            <%= link_to 'Back', categories_path %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
