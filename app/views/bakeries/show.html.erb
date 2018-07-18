@@ -30,6 +30,28 @@
 </section>
 <% end %>
 
+<section class="probootstrap-section">
+  <div class="container">
+    <div class="row">
+      <% @products.each do |product| %>
+        <div class="col-md-3">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="<%= image_url product.picture %>" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-title">
+                <%= link_to product.name, product %>
+              </p>
+              <p>
+                <%= product.price %> €
+              </p>
+              <button type="button" class="btn btn-outline-success">Add to cart <span class="oi oi-cart"></span></button>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
 
 <section class="probootstrap-section">
   <div class="container">
