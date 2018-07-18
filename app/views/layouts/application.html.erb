@@ -77,7 +77,7 @@
             </li>
             <li class="nav-item probootstrap-cta">
               <% if @mybakery %>
-                <%= link_to 'Orders', order_path(@mybakery.id), class: "nav-link" %>
+                <%= link_to 'Orders', orders_path, class: "nav-link" %>
               <% end %>
             </li>
           <% end %>
@@ -87,15 +87,16 @@
           <li class="nav-item probootstrap-cta">
             <%= link_to 'Sign out', destroy_user_session_path, :method => 'delete', class: "nav-link" %>
           </li>
-          <li class="nav-item probootstrap-cta probootstrap-seperator">
-            <div class="nav-link">
-              <%= price_currency @price_cart %>
-              <span class="oi oi-cart"></span>
-              (<%=  %>
-              <%= link_to "#{@products_in_cart} Prodcuts", "/orders/" %>)
-
-            </div>
-          </li>
+          <% if current_user.user? %>
+            <li class="nav-item probootstrap-cta probootstrap-seperator">
+              <div class="nav-link">
+                <%= price_currency @price_cart %>
+                <span class="oi oi-cart"></span>
+                (<%= %>
+                <%= link_to "#{@products_in_cart} Products", "/orders/" %>)
+              </div>
+            </li>
+          <% end %>
         <% else %>
           <li class="nav-item probootstrap-cta probootstrap-seperator">
             <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
