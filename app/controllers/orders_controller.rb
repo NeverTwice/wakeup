@@ -3,7 +3,17 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   def index
-    @orders = current_user.cart
+    if current_user.user?
+      @orders = current_user.cart
+      @orders_prep = Order.joins(:order_status).where(:order_statuses => { :status => "Preparation" }, :user_id => current_user.id)
+    else
+      @orders = Order.joins(:order_status, :product).where(:products => {
+          :bakery_id => Bakery.where(:user_id => current_user.id).first.id
+      }, :order_statuses => {
+          :status => "Preparation"
+      },)
+      @orders_address = Address.where(:user_id => @orders.first.user_id).first
+    end
   end
 
   def new
@@ -49,6 +59,24 @@ class OrdersController < ApplicationController
     @order_status.destroy
     @order.destroy
     redirect_to orders_url, notice: 'Product was successfully removed from your cart.'
+  end
+
+  def checkout
+    @notice = "There was a problem during the checkout"
+    @orders = current_user.cart
+    current_user.cart = Order.new
+    current_user.price_cart = 0.00
+
+    @orders.each do |order|
+      @order_status = OrderStatus.where(:order_id => order.id)
+      @order_status.each do |order_status|
+        order_status.status = "Preparation"
+        if order_status.save
+          @notice = 'Your order is now being handled by the bakery'
+        end
+      end
+    end
+    redirect_to orders_url, notice: @notice
   end
 
   private

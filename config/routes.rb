@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :categories
   resources :weeks
   resources :bakeries
+  get '/order/checkout', to: 'orders#checkout'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'home#index'
 end
