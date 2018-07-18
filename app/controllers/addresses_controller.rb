@@ -18,7 +18,11 @@ class AddressesController < ApplicationController
   def create
     @address = Address.new(address_params)
     if @address.save
-      redirect_to @address, notice: 'Address was successfully created.'
+      if current_user.baker?
+        redirect_to new_bakery_path, notice: 'Address was successfully created.'
+      else
+        redirect_to bakeries_path, notice: 'Address was successfully created.'
+      end
     else
       render :new
     end
