@@ -5,15 +5,28 @@
         <div class="probootstrap-text pt-5">
           <h1 class="probootstrap-heading text-white mb-4">Bakeries</h1>
           <div class="probootstrap-subheading mb-5">
-            <% if current_user.baker? %>
-              <%= link_to 'New Bakery', new_bakery_path %>
-            <% end %>
+            <div class="row">
+              <div class="col-md-12">
+                <% if current_user.baker? %>
+                  <%= link_to 'New Bakery', new_bakery_path %>
+                <% end %>
+                <br>
+                <%= form_with(url: bakeries_path, local: true, method: :get) do |form| %>
+                  <div class="field">
+                    <%= form.text_field :search, placeholder: 'Search your bakery', style: 'width: 600px' %>
+                    <%= form.submit 'Search', class: 'btn btn-primary', name: nil %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+
 
 <section class="probootstrap-section">
   <div class="container">
