@@ -38,12 +38,20 @@
 
   <div class="field">
     <%= form.label :bakery_id %>
-    <%= form.text_field :bakery_id %>
+    <%= form.select(:bakery_id) do %>
+      <% @bakeries.each do |b| -%>
+        <%= content_tag(:option, b.company_name, value: b.id) %>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="field">
     <%= form.label :category_id %>
-    <%= form.text_field :category_id %>
+    <%= form.select(:category_id) do %>
+      <% @categories.each do |c| -%>
+        <%= content_tag(:option, c.name, value: c.id) %>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="actions">

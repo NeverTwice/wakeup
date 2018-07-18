@@ -10,6 +10,8 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @bakeries = Bakery.all
+    @categories = Category.all
   end
 
   def edit
@@ -40,6 +42,8 @@ class ProductsController < ApplicationController
   private
     def set_product
       @product = Product.find(params[:id])
+      @bakeries = Bakery.all
+      @categories = Category.all
     end
 
     def product_params
