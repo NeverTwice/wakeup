@@ -47,7 +47,8 @@
               </p>
               <% if !user_signed_in? || current_user.user? %>
                 <button type="button" class="btn btn-outline-success">
-                  Add to cart <span class="oi oi-cart"></span>
+                  <%= link_to 'Add to cart', new_order_path(:product_id => product.id, :user_id => current_user.id, :quantity => 1, :address_id => current_user.default_address) %>
+                  <span class="oi oi-cart"></span>
                 </button>
               <% elsif current_user.baker? && @bakeryUser == current_user.id %>
                 <%= link_to 'Edit', edit_product_path(product.id), class: "btn btn-outline-success" %><br>
