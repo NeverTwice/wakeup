@@ -1,8 +1,16 @@
 class BakeriesController < ApplicationController
-  before_action :set_bakery, only: [:show, :edit, :update, :destroy]
+  before_action :set_bakery, only: %i[show edit update destroy]
 
   def index
-    @bakeries = Bakery.all
+
+    if params[:search].nil?
+      @bakeries = Bakery.all
+    else
+      @bakeries = Bakery.where('company_name LIKE ?', "%#{params[:search]}%")
+    end
+
+
+
   end
 
   def show
@@ -39,11 +47,12 @@ class BakeriesController < ApplicationController
   end
 
   private
-    def set_bakery
-      @bakery = Bakery.find(params[:id])
-    end
 
-    def bakery_params
-      params.require(:bakery).permit(:company_name, :picture, :created_at, :updated_at)
-    end
+  def set_bakery
+    @bakery = Bakery.find(params[:id])
+  end
+
+  def bakery_params
+    params.require(:bakery).permit(:company_name, :picture, :created_at, :updated_at)
+  end
 end
