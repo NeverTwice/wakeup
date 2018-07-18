@@ -1,31 +1,110 @@
-<h1>Orders</h1>
+<section class="probootstrap-cover">
+  <div class="container">
+    <div class="row align-items-center text-left" style="padding-top:5em;">
+      <div class="col-sm">
+        <div class="probootstrap-text pt-5">
+          <h1 class="probootstrap-heading text-white mb-4">My Orders</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="probootstrap-section">
 
-<table>
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Quantity</th>
-      <th>User</th>
-      <th>Address</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <% if current_user.user? %>
+    <div class="container">
+      <h3>Your current Cart</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Bakery</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
 
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.product %></td>
-        <td><%= order.quantity %></td>
-        <td><%= order.user %></td>
-        <td><%= order.address %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <tbody>
+          <% @orders.each do |order| %>
+            <tr>
+              <td><%= order.product.name %></td>
+              <td><%= price_currency order.product.price %></td>
+              <td><%= order.product.bakery.company_name %></td>
+              <td><%= link_to 'Remove', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="container">
+        <h4 style="display: inline-block;">Total : <b><%= price_currency current_user.price_cart %></b></h4>
+        <% if current_user.price_cart > 0 %>
+        <button style="display:inline-block; float:right;" type="button" class="btn btn-outline-success">
+          <%= link_to "Checkout", "/order/checkout" %>
+        </button>
+        <% end %>
+      </div>
+    </div>
+
+  <br><br>
+    <div class="container">
+      <h3>Orders in <b>Preparation</b></h3>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Bakery</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @orders_prep.each do |order| %>
+          <tr>
+            <td><%= order.product.name %></td>
+            <td><%= price_currency order.product.price %></td>
+            <td><%= order.product.bakery.company_name %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% else %>
+    <div class="container">
+      <h3>Order you have to send</h3>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Client</th>
+          <th>Address</th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <%
+          @price = 0.00
+          @orders.each do |order|
+          @price = @price + order.product.price
+        %>
+          <tr>
+            <td><%= order.product.name %></td>
+            <td><%= price_currency order.product.price %></td>
+            <td><%= order.user.firstname + " " + order.user.lastname %></td>
+            <td><%= @orders_address.street + " " + @orders_address.zipcode +  " " +@orders_address.country %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <div class="container">
+        <h4 style="display: inline-block;">Total : <b><%= price_currency @price %></b></h4>
+        <% if @price < 0 %>
+          <button style="display:inline-block; float:right;" type="button" class="btn btn-outline-success">
+            <%= link_to "Send", "/order/checkout" %>
+          </button>
+        <% end %>
+      </div>
+    </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Order', new_order_path %>
+</section>

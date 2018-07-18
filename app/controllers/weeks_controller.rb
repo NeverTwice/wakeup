@@ -1,4 +1,7 @@
 class WeeksController < ApplicationController
+  include ApplicationHelper
+
+  before_action :checkRights, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_week, only: [:show, :edit, :update, :destroy]
 
   def index

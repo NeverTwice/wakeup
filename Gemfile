@@ -63,6 +63,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Custom added libraries
 gem 'bootstrap', '~> 4.1.1'
+gem 'carrierwave', '~> 1.0'
 gem 'devise'
 gem 'jquery-rails'
 gem 'simple_form'

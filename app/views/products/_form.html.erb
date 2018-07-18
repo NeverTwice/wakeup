@@ -33,20 +33,23 @@
 
   <div class="field">
     <%= form.label :picture %>
-    <%= form.text_field :picture %>
+    <%= form.file_field :picture %>
   </div>
 
-  <div class="field">
-    <%= form.label :bakery_id %>
-    <%= form.text_field :bakery_id %>
-  </div>
+  <%= form.hidden_field :bakery_id, :value => @mybakery.id %>
+
 
   <div class="field">
     <%= form.label :category_id %>
-    <%= form.text_field :category_id %>
+    <%= form.select(:category_id) do %>
+      <% @categories.each do |c| -%>
+        <%= content_tag(:option, c.name, value: c.id) %>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= link_to 'Create a categorie', new_category_path, class: "btn btn-outline-success" %>
+    <%= form.submit class: "btn btn-outline-success" %>
   </div>
 <% end %>
