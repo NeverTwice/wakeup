@@ -45,7 +45,12 @@
               <p>
                 <%= product.price %> €
               </p>
-              <% if !user_signed_in? || current_user.user? %>
+              <% if !user_signed_in? %>
+                <button type="button" class="btn btn-outline-success">
+                  <%= link_to 'Add to cart', new_user_session_path %>
+                  <span class="oi oi-cart"></span>
+                </button>
+              <% elsif user_signed_in? && current_user.user? %>
                 <button type="button" class="btn btn-outline-success">
                   <%= link_to 'Add to cart', new_order_path(:product_id => product.id, :user_id => current_user.id, :quantity => 1, :address_id => current_user.default_address) %>
                   <span class="oi oi-cart"></span>
