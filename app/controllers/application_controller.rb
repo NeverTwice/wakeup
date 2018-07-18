@@ -1,6 +1,13 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
   before_action :set_cart, :set_default_address
+  before_action :set_user_bakery
+
+  def set_user_bakery
+    if current_user && current_user.baker?
+      @mybakery = Bakery.find_by(:user_id => current_user.id)
+    end
+  end
 
   def set_cart
     @products_in_cart = 0

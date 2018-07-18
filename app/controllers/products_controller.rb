@@ -1,4 +1,7 @@
 class ProductsController < ApplicationController
+  include ApplicationHelper
+
+  before_action :checkRights, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -20,7 +23,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
-      redirect_to @product, notice: 'Product was successfully created.'
+      redirect_to bakery_path(@mybakery.id), notice: 'Product was successfully created.'
     else
       render :new
     end
@@ -28,7 +31,7 @@ class ProductsController < ApplicationController
 
   def update
     if @product.update(product_params)
-      redirect_to @product, notice: 'Product was successfully updated.'
+      redirect_to bakery_path(@mybakery.id), notice: 'Product was successfully updated.'
     else
       render :edit
     end
@@ -36,7 +39,7 @@ class ProductsController < ApplicationController
 
   def destroy
     @product.destroy
-    redirect_to products_url, notice: 'Product was successfully destroyed.'
+    redirect_to bakery_path(@mybakery.id), notice: 'Product was successfully destroyed.'
   end
 
   private

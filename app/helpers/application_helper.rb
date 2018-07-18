@@ -1,5 +1,11 @@
 module ApplicationHelper
 
+  def checkRights
+    if !user_signed_in? || !current_user.baker?
+      redirect_to "/"
+    end
+  end
+
   def user_redirection resource
     if resource.is_a?(User)
       if current_user.baker?

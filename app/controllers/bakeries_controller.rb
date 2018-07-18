@@ -1,5 +1,8 @@
 class BakeriesController < ApplicationController
-  before_action :set_bakery, only: %i[show edit update destroy]
+  include ApplicationHelper
+
+  before_action :checkRights, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_bakery, only: [:show, :edit, :update, :destroy]
 
   def index
 
@@ -14,6 +17,7 @@ class BakeriesController < ApplicationController
   end
 
   def show
+    @bakeryUser = Bakery.find(params[:id]).user_id
     @products = Product.where(:bakery_id => params[:id])
   end
 
@@ -22,11 +26,15 @@ class BakeriesController < ApplicationController
   end
 
   def edit
+    if user_signed_in? && current_user.id != Bakery.find(params[:id]).user_id
+      redirect_to bakeries_path
+    end
   end
 
   def create
     @bakery = Bakery.new(bakery_params)
     @bakery.user_id = current_user.id
+
     if @bakery.save
       redirect_to @bakery, notice: 'Your bakery was successfully created.'
     else
@@ -48,12 +56,11 @@ class BakeriesController < ApplicationController
   end
 
   private
+    def set_bakery
+      @bakery = Bakery.find(params[:id])
+    end
 
-  def set_bakery
-    @bakery = Bakery.find(params[:id])
-  end
-
-  def bakery_params
-    params.require(:bakery).permit(:company_name, :picture, :created_at, :updated_at)
-  end
+    def bakery_params
+      params.require(:bakery).permit(:company_name, :picture, :created_at, :updated_at)
+    end
 end
