@@ -1,4 +1,7 @@
 class BakeriesController < ApplicationController
+  include ApplicationHelper
+
+  before_action :checkRights, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_bakery, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -15,6 +18,9 @@ class BakeriesController < ApplicationController
   end
 
   def edit
+    if user_signed_in? && current_user.id != Bakery.find(params[:id]).user_id
+      redirect_to bakeries_path
+    end
   end
 
   def create
@@ -45,6 +51,8 @@ class BakeriesController < ApplicationController
     def set_bakery
       @bakery = Bakery.find(params[:id])
     end
+
+
 
     def bakery_params
       params.require(:bakery).permit(:company_name, :picture, :created_at, :updated_at)

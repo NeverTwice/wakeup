@@ -1,4 +1,7 @@
 class ProductsController < ApplicationController
+  include ApplicationHelper
+
+  before_action :checkRights, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
