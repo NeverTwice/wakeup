@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :addresses
   enum role: [:user, :baker]
   attr_accessor :cart
   attr_accessor :price_cart

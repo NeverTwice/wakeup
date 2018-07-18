@@ -1,3 +1,18 @@
+<style>
+  /* Always set the map height explicitly to define the size of the div
+   * element that contains the map. */
+  #map {
+    height: 100%;
+  }
+
+  /* Optional: Makes the sample page fill the window. */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+</style>
+
 <section class="probootstrap-cover">
   <div class="container">
     <div class="row align-items-center text-left" style="padding-top:5em;">
@@ -30,6 +45,15 @@
 
 
 
+<button class="btn btn-primary researches"><i class="icon-location-pin" style="font-size:20px"></i> Find all bakery
+  arround me
+</button>
+<div id="late" style="visibility:hidden;">48.85661400000001</div>
+<div id="lnge" style="visibility: hidden;">2.3522219000000177</div>
+<div id="map"></div>
+
+
+
 <section class="probootstrap-section">
   <div class="container">
     <% if @bakeries %>
@@ -50,3 +74,92 @@
     <% end %>
   </div>
 </section>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDXFjaSbNtIERcw7wpYtFaGpoMO7mieo&callback=initMap"
+        async defer></script>
+<script>
+    var map;
+
+    $('.researches').on('click', function () {
+
+
+        Rails.ajax({
+            type: "GET",
+            url: "/bakeries/address",
+            dataType: 'json',
+            success: function (data, textStatus, jqXHR) {
+
+                new google.maps.Geocoder().geocode({'address': data[0].street + ', ' + data[0].zipcode}, function (results, status) {
+
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        var latitude = results[0].geometry.location.lat();
+                        var longitude = results[0].geometry.location.lng();
+
+
+                        map = new google.maps.Map(document.getElementById('map'), {
+                            center: {
+                                lat: latitude,
+                                lng: longitude,
+                            },
+                            zoom: 15
+                        });
+
+                        var marker = new google.maps.Marker({
+                            position: {
+                                lat: latitude,
+                                lng: longitude,
+                            },
+                            map: map,
+                            title: 'Hello World!'
+                        });
+
+
+                    }
+                });
+
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus)
+            }
+        })
+    })
+
+
+    function initMap() {
+        Rails.ajax({
+            type: "GET",
+            url: "/bakeries/getallbakerie",
+            dataType: 'json',
+            success: function (data, textStatus, jqXHR) {
+
+                var myOptions = {
+                    zoom: 8,
+                    center: new google.maps.LatLng(parseFloat($('#late').text()), parseFloat($('#lnge').text())),
+                };
+                map = new google.maps.Map($('#map')[0], myOptions);
+
+                for (var x = 0; x < data.length; x++) {
+                    $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address='+data[x].street+ ', ' +  data[x].zipcode + '&sensor=false', null, function (datae) {
+
+                        console.log(datae);
+                        var p = datae.results[0].geometry.location;
+                        var latlng = new google.maps.LatLng(p.lat, p.lng);
+                        new google.maps.Marker({
+                            position: latlng,
+                            map: map
+                        });
+
+                    });
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus)
+            }
+        })
+
+    }
+
+</script>
