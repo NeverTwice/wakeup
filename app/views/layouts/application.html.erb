@@ -77,7 +77,11 @@
           </li>
           <li class="nav-item probootstrap-cta probootstrap-seperator">
             <div class="nav-link">
+              <%= price_currency @price_cart %>
               <span class="oi oi-cart"></span>
+              (<%=  %>
+              <%= link_to "#{@products_in_cart} Prodcuts", "/orders/" %>)
+
             </div>
           </li>
         <% else %>

@@ -16,4 +16,8 @@ module ApplicationHelper
     end
   end
 
+  def price_currency price
+    number_to_currency price, :unit => '€', :separator => ","
+  end
+
 end
