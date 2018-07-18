@@ -7,6 +7,10 @@
           <div class="probootstrap-subheading mb-5">
             <div class="row">
               <div class="col-md-12">
+                <% if current_user.baker? %>
+                  <%= link_to 'New Bakery', new_bakery_path %>
+                <% end %>
+                <br>
                 <%= form_with(url: bakeries_path, local: true, method: :get) do |form| %>
                   <div class="field">
                     <%= form.text_field :search, placeholder: 'Search your bakery', style: 'width: 600px' %>
@@ -27,14 +31,16 @@
 <section class="probootstrap-section">
   <div class="container">
     <% @bakeries.each do |bakery| %>
-      <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="<%= image_url bakery.picture %>" alt="Card image cap">
-        <div class="card-body">
-          <p class="card-text">
-            <%= link_to bakery.company_name, bakery %>
-          </p>
+      <% if current_user.baker? && current_user.id == bakery.user_id || current_user.user? %>
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="<%= image_url bakery.picture %>" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">
+              <%= link_to bakery.company_name, bakery %>
+            </p>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
 </section>

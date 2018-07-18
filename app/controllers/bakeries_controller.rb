@@ -14,6 +14,7 @@ class BakeriesController < ApplicationController
   end
 
   def show
+    @products = Product.where(:bakery_id => params[:id])
   end
 
   def new
