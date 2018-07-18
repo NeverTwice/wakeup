@@ -2,15 +2,21 @@ class BakeriesController < ApplicationController
   before_action :set_bakery, only: %i[show edit update destroy]
 
   def index
-
     if params[:search].nil?
       @bakeries = Bakery.all
     else
       @bakeries = Bakery.where('company_name LIKE ?', "%#{params[:search]}%")
     end
+  end
 
+  def jsonaddress
+   @getBakeryByUser = Address.where(:user_id => current_user.id)
+    render json: @getBakeryByUser
+  end
 
-
+  def jsonaddressv2
+   @getBakeryByAdd = Address.all
+    render json: @getBakeryByAdd
   end
 
   def show
@@ -47,12 +53,11 @@ class BakeriesController < ApplicationController
   end
 
   private
+    def set_bakery
+      @bakery = Bakery.find(params[:id])
+    end
 
-  def set_bakery
-    @bakery = Bakery.find(params[:id])
-  end
-
-  def bakery_params
-    params.require(:bakery).permit(:company_name, :picture, :created_at, :updated_at)
-  end
+    def bakery_params
+      params.require(:bakery).permit(:company_name, :picture, :created_at, :updated_at)
+    end
 end

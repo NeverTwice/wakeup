@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :addresses
   enum role: [:user, :baker]
 
   after_initialize :set_default_role, :if => :new_record?

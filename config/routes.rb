@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, path: '', path_names: {sign_in: 'login', sign_out: 'logout', sign_up: 'register', edit: 'settings'}, controllers: {registrations: 'registrations'}
+  get '/bakeries/address', to: 'bakeries#jsonaddress'
+  get '/bakeries/getallbakerie', to: 'bakeries#jsonaddressv2'
   resources :orders
   resources :addresses
   resources :users
@@ -8,7 +10,11 @@ Rails.application.routes.draw do
   resources :products
   resources :categories
   resources :weeks
+
   resources :bakeries
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'home#index'
+
 end
