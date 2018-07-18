@@ -4,7 +4,9 @@ class OrdersController < ApplicationController
 
   def index
     if current_user.user?
+      # Current cart being made
       @orders = current_user.cart
+      # Orders that I've already payed and that I'm waiting for Bakery's delivery
       @orders_prep = Order.joins(:order_status).where(:order_statuses => { :status => "Preparation" }, :user_id => current_user.id)
     else
       @orders = Order.joins(:order_status, :product).where(:products => {
