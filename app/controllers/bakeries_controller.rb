@@ -19,6 +19,7 @@ class BakeriesController < ApplicationController
   def create
     @bakery = Bakery.new(bakery_params)
     @bakery.user_id = current_user.id
+
     if @bakery.save
       redirect_to @bakery, notice: 'Your bakery was successfully created.'
     else

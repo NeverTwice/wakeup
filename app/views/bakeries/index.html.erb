@@ -5,8 +5,10 @@
         <div class="probootstrap-text pt-5">
           <h1 class="probootstrap-heading text-white mb-4">Bakeries</h1>
           <div class="probootstrap-subheading mb-5">
-            <% if current_user.baker? %>
-              <%= link_to 'New Bakery', new_bakery_path %>
+            <% if user_signed_in? %>
+              <% if current_user.baker? && !@mybakery %>
+                <%= link_to 'New Bakery', new_bakery_path %>
+                <% end %>
             <% end %>
           </div>
         </div>
@@ -17,8 +19,8 @@
 
 <section class="probootstrap-section">
   <div class="container">
-    <% @bakeries.each do |bakery| %>
-      <% if current_user.baker? && current_user.id == bakery.user_id || current_user.user? %>
+    <% if @bakeries %>
+      <% @bakeries.each do |bakery| %>
         <div class="card" style="width: 18rem;">
           <img class="card-img-top" src="<%= image_url bakery.picture %>" alt="Card image cap">
           <div class="card-body">
