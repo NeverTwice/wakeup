@@ -20,16 +20,20 @@
 <section class="probootstrap-section">
   <div class="container">
     <% if @bakeries %>
-      <% @bakeries.each do |bakery| %>
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="<%= image_url bakery.picture %>" alt="Card image cap">
-          <div class="card-body">
-            <p class="card-text">
-              <%= link_to bakery.company_name, bakery %>
-            </p>
+      <div class="row">
+        <% @bakeries.each do |bakery| %>
+          <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+              <img class="card-img-top" src="<%= image_url bakery.picture %>" alt="Card image cap">
+              <div class="card-body">
+                <p class="card-text">
+                  <%= link_to bakery.company_name, bakery %>
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </section>

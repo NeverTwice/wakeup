@@ -6,6 +6,7 @@ class BakeriesController < ApplicationController
   end
 
   def show
+    @bakeryUser = Bakery.find(params[:id]).user_id
     @products = Product.where(:bakery_id => params[:id])
   end
 

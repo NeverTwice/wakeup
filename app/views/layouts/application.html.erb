@@ -69,10 +69,16 @@
         <% if user_signed_in? %>
           <% if current_user.baker? %>
             <li class="nav-item probootstrap-cta probootstrap-seperator">
-              <%= link_to('My bakery', bakery_path(@mybakery.id), class: "nav-link") %>
+              <% if @mybakery %>
+                <%= link_to('My bakery', bakery_path(@mybakery.id), class: "nav-link") %>
+              <% else %>
+                <%= link_to('My bakery', new_bakery_path, class: "nav-link") %>
+              <% end %>
             </li>
             <li class="nav-item probootstrap-cta">
-              <%= link_to 'Orders', order_path(@mybakery.id), class: "nav-link" %>
+              <% if @mybakery %>
+                <%= link_to 'Orders', order_path(@mybakery.id), class: "nav-link" %>
+              <% end %>
             </li>
           <% end %>
           <li class="nav-item probootstrap-cta probootstrap-seperator">
